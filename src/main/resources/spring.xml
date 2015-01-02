@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--<bean id="parentTriangle" class="com.spring.demo.Triangle">
+        <property name="pointA" ref="pointA" />
+    </bean>-->
+
+    <bean id="triangle" class="com.spring.demo.Triangle">
+        <!--<property name="type" value="Equilateral" />
+        <constructor-arg value="Equilateral" />
+        <constructor-arg value="20" type="int" />
+        <constructor-arg value="20" index="1" />
+        <constructor-arg value="Equilateral" index="0" />-->
+        <!--<property name="pointA" ref="zeroPoint" />
+        <property name="pointB">
+            <bean class="com.spring.demo.Point">
+                <property name="x" value="-20" />
+                <property name="y" value="0" />
+            </bean>
+        </property>
+        <property name="pointC">
+            <bean class="com.spring.demo.Point">
+                <property name="x" value="20" />
+                <property name="y" value="0" />
+            </bean>
+        </property>-->
+        <!--<property name="points" >
+            <list>
+                <ref bean="zeroPoint" />
+                <ref bean="point2" />
+                <ref bean="point3" />
+            </list>
+        </property>-->
+    </bean>
+
+    <!--<bean id="circle" class="com.spring.demo.Circle">-->
+        <!--<property name="center" ref="pointA" />-->
+    <!--</bean>-->
+
+    <bean id="center" class="com.spring.demo.Point">
+        <qualifier value="circleRelated" />
+        <property name="x" value="${pointA.pointX}"/>
+        <property name="y" value="${pointA.pointY}"/>
+    </bean>
+
+    <bean id="pointB" class="com.spring.demo.Point">
+        <property name="x" value="-20"/>
+        <property name="y" value="0"/>
+    </bean>
+
+    <bean id="pointC" class="com.spring.demo.Point">
+        <property name="x" value="20"/>
+        <property name="y" value="0"/>
+    </bean>
+
+    <alias name="triangle" alias="triangle-alias"/>
+
+    <!--<bean class="com.spring.demo.DisplayBeanPostProcessor" />-->
+    <!--<bean class="com.spring.demo.MyBeanFactoryPP" />-->
+
+    <!--read from properties file-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="postconfig.properties"/>
+    </bean>
+
+
+    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.spring.demo" />
+
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>mymessages</value>
+            </list>
+        </property>
+    </bean>
+</beans>
